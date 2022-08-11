@@ -1,0 +1,22 @@
+{
+  "@type" : "schema",
+  "definitions" : [ {
+    "@type" : "definition",
+    "name" : "foo",
+    "permissions" : [ {
+      "@type" : "permission",
+      "name" : "bar",
+      "expression" : {
+        "@type" : "intersect",
+        "left" : {
+          "@type" : "ref",
+          "ref" : "maz"
+        },
+        "right" : {
+          "@type" : "ref",
+          "ref" : "beh"
+        }
+      }
+    } ]
+  } ]
+}

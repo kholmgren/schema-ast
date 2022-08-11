@@ -1,0 +1,40 @@
+{
+  "@type" : "schema",
+  "definitions" : [ {
+    "@type" : "definition",
+    "name" : "tenant/folder",
+    "relations" : [ {
+      "@type" : "relation",
+      "name" : "parent",
+      "expression" : {
+        "@type" : "ref",
+        "ref" : "tenant/folder"
+      }
+    }, {
+      "@type" : "relation",
+      "name" : "reader",
+      "expression" : {
+        "@type" : "ref",
+        "ref" : "tenant/user"
+      }
+    } ],
+    "permissions" : [ {
+      "@type" : "permission",
+      "name" : "read",
+      "expression" : {
+        "@type" : "union",
+        "left" : {
+          "@type" : "ref",
+          "ref" : "reader"
+        },
+        "right" : {
+          "@type" : "walk",
+          "refs" : [ "parent", "read" ]
+        }
+      }
+    } ]
+  }, {
+    "@type" : "definition",
+    "name" : "tenant/user"
+  } ]
+}

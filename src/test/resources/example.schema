@@ -1,0 +1,23 @@
+/** tenant/user represents a user */
+definition tenant/user {}
+
+/** tenant/group represents a group **/
+definition tenant/group {
+    /** member is a member of a tenant/group, which can be a tenant/user or the membership of another tenant/group */
+    relation member: tenant/user | tenant/group#member
+}
+
+/** tenant/document represents a document */
+definition tenant/document {
+    /** writer is a writer of the document */
+    relation writer: tenant/user | tenant/group#member
+
+    /** reader is a reader of the document */
+    relation reader: tenant/user | tenant/group#member
+
+    /** write indicates which tenant/user can write to the document */
+    permission write = writer
+
+    /** read indicates which tenant/user can read the document */
+    permission read = reader + write
+}

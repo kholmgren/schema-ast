@@ -1,0 +1,50 @@
+{
+  "@type" : "schema",
+  "definitions" : [ {
+    "@type" : "definition",
+    "name" : "foo",
+    "permissions" : [ {
+      "@type" : "permission",
+      "name" : "bar",
+      "expression" : {
+        "@type" : "union",
+        "left" : {
+          "@type" : "union",
+          "left" : {
+            "@type" : "union",
+            "left" : {
+              "@type" : "ref",
+              "ref" : "baz"
+            },
+            "right" : {
+              "@type" : "ref",
+              "ref" : "meh"
+            }
+          },
+          "right" : {
+            "@type" : "exclude",
+            "left" : {
+              "@type" : "walk",
+              "refs" : [ "a", "b" ]
+            },
+            "right" : {
+              "@type" : "walk",
+              "refs" : [ "c", "d" ]
+            }
+          }
+        },
+        "right" : {
+          "@type" : "intersect",
+          "left" : {
+            "@type" : "ref",
+            "ref" : "maz"
+          },
+          "right" : {
+            "@type" : "ref",
+            "ref" : "beh"
+          }
+        }
+      }
+    } ]
+  } ]
+}

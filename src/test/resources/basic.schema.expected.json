@@ -1,0 +1,66 @@
+{
+  "@type" : "schema",
+  "definitions" : [ {
+    "@type" : "definition",
+    "name" : "mydefinition",
+    "relations" : [ {
+      "@type" : "relation",
+      "name" : "foo",
+      "expression" : {
+        "@type" : "or",
+        "left" : {
+          "@type" : "ellipsisRef",
+          "ref" : "sometype"
+        },
+        "right" : {
+          "@type" : "groupRef",
+          "ref" : "anothertype",
+          "member" : "somerel"
+        }
+      }
+    } ],
+    "permissions" : [ {
+      "@type" : "permission",
+      "name" : "bar",
+      "expression" : {
+        "@type" : "exclude",
+        "left" : {
+          "@type" : "union",
+          "left" : {
+            "@type" : "ref",
+            "ref" : "foo"
+          },
+          "right" : {
+            "@type" : "ref",
+            "ref" : "baz"
+          }
+        },
+        "right" : {
+          "@type" : "ref",
+          "ref" : "meh"
+        }
+      }
+    }, {
+      "@type" : "permission",
+      "name" : "another",
+      "expression" : {
+        "@type" : "union",
+        "left" : {
+          "@type" : "exclude",
+          "left" : {
+            "@type" : "ref",
+            "ref" : "foo"
+          },
+          "right" : {
+            "@type" : "ref",
+            "ref" : "meh"
+          }
+        },
+        "right" : {
+          "@type" : "ref",
+          "ref" : "bar"
+        }
+      }
+    } ]
+  } ]
+}

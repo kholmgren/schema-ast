@@ -1,0 +1,25 @@
+{
+  "@type" : "schema",
+  "definitions" : [ {
+    "@type" : "definition",
+    "name" : "user"
+  }, {
+    "@type" : "definition",
+    "name" : "single",
+    "permissions" : [ {
+      "@type" : "permission",
+      "name" : "first",
+      "expression" : {
+        "@type" : "union",
+        "left" : {
+          "@type" : "ref",
+          "ref" : "bar"
+        },
+        "right" : {
+          "@type" : "ref",
+          "ref" : "baz"
+        }
+      }
+    } ]
+  } ]
+}

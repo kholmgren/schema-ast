@@ -1,0 +1,67 @@
+{
+  "@type" : "schema",
+  "definitions" : [ {
+    "@type" : "definition",
+    "name" : "tenant/role",
+    "relations" : [ {
+      "@type" : "relation",
+      "name" : "member",
+      "expression" : {
+        "@type" : "or",
+        "left" : {
+          "@type" : "ref",
+          "ref" : "tenant/user"
+        },
+        "right" : {
+          "@type" : "groupRef",
+          "ref" : "tenant/group",
+          "member" : "membership"
+        }
+      }
+    } ],
+    "permissions" : [ {
+      "@type" : "permission",
+      "name" : "allowed",
+      "expression" : {
+        "@type" : "ref",
+        "ref" : "member"
+      }
+    } ]
+  }, {
+    "@type" : "definition",
+    "name" : "tenant/user"
+  }, {
+    "@type" : "definition",
+    "name" : "tenant/group",
+    "relations" : [ {
+      "@type" : "relation",
+      "name" : "admin",
+      "expression" : {
+        "@type" : "ref",
+        "ref" : "tenant/user"
+      }
+    }, {
+      "@type" : "relation",
+      "name" : "member",
+      "expression" : {
+        "@type" : "ref",
+        "ref" : "tenant/user"
+      }
+    } ],
+    "permissions" : [ {
+      "@type" : "permission",
+      "name" : "membership",
+      "expression" : {
+        "@type" : "union",
+        "left" : {
+          "@type" : "ref",
+          "ref" : "admin"
+        },
+        "right" : {
+          "@type" : "ref",
+          "ref" : "member"
+        }
+      }
+    } ]
+  } ]
+}

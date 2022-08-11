@@ -1,0 +1,92 @@
+{
+  "@type" : "schema",
+  "definitions" : [ {
+    "@type" : "definition",
+    "name" : "tenant/user"
+  }, {
+    "@type" : "definition",
+    "name" : "tenant/portfolio",
+    "relations" : [ {
+      "@type" : "relation",
+      "name" : "reader",
+      "expression" : {
+        "@type" : "ref",
+        "ref" : "tenant/user"
+      }
+    } ],
+    "permissions" : [ {
+      "@type" : "permission",
+      "name" : "read",
+      "expression" : {
+        "@type" : "ref",
+        "ref" : "reader"
+      }
+    } ]
+  }, {
+    "@type" : "definition",
+    "name" : "tenant/folder",
+    "relations" : [ {
+      "@type" : "relation",
+      "name" : "parent_portfolio",
+      "expression" : {
+        "@type" : "ref",
+        "ref" : "tenant/portfolio"
+      }
+    }, {
+      "@type" : "relation",
+      "name" : "reader",
+      "expression" : {
+        "@type" : "ref",
+        "ref" : "tenant/user"
+      }
+    } ],
+    "permissions" : [ {
+      "@type" : "permission",
+      "name" : "read",
+      "expression" : {
+        "@type" : "union",
+        "left" : {
+          "@type" : "ref",
+          "ref" : "reader"
+        },
+        "right" : {
+          "@type" : "walk",
+          "refs" : [ "parent_portfolio", "read" ]
+        }
+      }
+    } ]
+  }, {
+    "@type" : "definition",
+    "name" : "tenant/document",
+    "relations" : [ {
+      "@type" : "relation",
+      "name" : "parent_folder",
+      "expression" : {
+        "@type" : "ref",
+        "ref" : "tenant/folder"
+      }
+    }, {
+      "@type" : "relation",
+      "name" : "reader",
+      "expression" : {
+        "@type" : "ref",
+        "ref" : "tenant/user"
+      }
+    } ],
+    "permissions" : [ {
+      "@type" : "permission",
+      "name" : "read",
+      "expression" : {
+        "@type" : "union",
+        "left" : {
+          "@type" : "ref",
+          "ref" : "reader"
+        },
+        "right" : {
+          "@type" : "walk",
+          "refs" : [ "parent_folder", "read" ]
+        }
+      }
+    } ]
+  } ]
+}

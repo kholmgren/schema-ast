@@ -1,0 +1,78 @@
+{
+  "@type" : "schema",
+  "definitions" : [ {
+    "@type" : "definition",
+    "name" : "tenant/platform",
+    "relations" : [ {
+      "@type" : "relation",
+      "name" : "administrator",
+      "expression" : {
+        "@type" : "ref",
+        "ref" : "tenant/user"
+      }
+    } ],
+    "permissions" : [ {
+      "@type" : "permission",
+      "name" : "super_admin",
+      "expression" : {
+        "@type" : "ref",
+        "ref" : "administrator"
+      }
+    } ]
+  }, {
+    "@type" : "definition",
+    "name" : "tenant/organization",
+    "relations" : [ {
+      "@type" : "relation",
+      "name" : "platform",
+      "expression" : {
+        "@type" : "ref",
+        "ref" : "tenant/platform"
+      }
+    } ],
+    "permissions" : [ {
+      "@type" : "permission",
+      "name" : "admin",
+      "expression" : {
+        "@type" : "walk",
+        "refs" : [ "platform", "super_admin" ]
+      }
+    } ]
+  }, {
+    "@type" : "definition",
+    "name" : "tenant/resource",
+    "relations" : [ {
+      "@type" : "relation",
+      "name" : "owner",
+      "expression" : {
+        "@type" : "or",
+        "left" : {
+          "@type" : "ref",
+          "ref" : "tenant/user"
+        },
+        "right" : {
+          "@type" : "ref",
+          "ref" : "tenant/organization"
+        }
+      }
+    } ],
+    "permissions" : [ {
+      "@type" : "permission",
+      "name" : "admin",
+      "expression" : {
+        "@type" : "union",
+        "left" : {
+          "@type" : "ref",
+          "ref" : "owner"
+        },
+        "right" : {
+          "@type" : "walk",
+          "refs" : [ "owner", "admin" ]
+        }
+      }
+    } ]
+  }, {
+    "@type" : "definition",
+    "name" : "tenant/user"
+  } ]
+}

@@ -1,0 +1,47 @@
+{
+  "@type" : "schema",
+  "definitions" : [ {
+    "@type" : "definition",
+    "name" : "user"
+  }, {
+    "@type" : "definition",
+    "name" : "document",
+    "relations" : [ {
+      "@type" : "relation",
+      "name" : "writer",
+      "expression" : {
+        "@type" : "ref",
+        "ref" : "user"
+      }
+    }, {
+      "@type" : "relation",
+      "name" : "reader",
+      "expression" : {
+        "@type" : "ref",
+        "ref" : "user"
+      }
+    } ],
+    "permissions" : [ {
+      "@type" : "permission",
+      "name" : "edit",
+      "expression" : {
+        "@type" : "ref",
+        "ref" : "writer"
+      }
+    }, {
+      "@type" : "permission",
+      "name" : "view",
+      "expression" : {
+        "@type" : "union",
+        "left" : {
+          "@type" : "ref",
+          "ref" : "reader"
+        },
+        "right" : {
+          "@type" : "ref",
+          "ref" : "edit"
+        }
+      }
+    } ]
+  } ]
+}

@@ -1,0 +1,67 @@
+{
+  "@type" : "schema",
+  "definitions" : [ {
+    "@type" : "definition",
+    "name" : "resource",
+    "permissions" : [ {
+      "@type" : "permission",
+      "name" : "empty",
+      "expression" : {
+        "@type" : "nil"
+      }
+    }, {
+      "@type" : "permission",
+      "name" : "another",
+      "expression" : {
+        "@type" : "union",
+        "left" : {
+          "@type" : "union",
+          "left" : {
+            "@type" : "ref",
+            "ref" : "foo"
+          },
+          "right" : {
+            "@type" : "nil"
+          }
+        },
+        "right" : {
+          "@type" : "ref",
+          "ref" : "bar"
+        }
+      }
+    }, {
+      "@type" : "permission",
+      "name" : "third",
+      "expression" : {
+        "@type" : "exclude",
+        "left" : {
+          "@type" : "exclude",
+          "left" : {
+            "@type" : "union",
+            "left" : {
+              "@type" : "union",
+              "left" : {
+                "@type" : "ref",
+                "ref" : "a"
+              },
+              "right" : {
+                "@type" : "ref",
+                "ref" : "b"
+              }
+            },
+            "right" : {
+              "@type" : "nil"
+            }
+          },
+          "right" : {
+            "@type" : "ref",
+            "ref" : "c"
+          }
+        },
+        "right" : {
+          "@type" : "nil"
+        }
+      }
+    } ]
+  } ]
+}

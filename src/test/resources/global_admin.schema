@@ -1,0 +1,16 @@
+definition tenant/platform {
+	relation administrator: tenant/user
+	permission super_admin = administrator
+}
+
+definition tenant/organization {
+	relation platform: tenant/platform
+	permission admin = platform->super_admin
+}
+
+definition tenant/resource {
+	relation owner: tenant/user | tenant/organization
+	permission admin = owner + owner->admin
+}
+
+definition tenant/user {}

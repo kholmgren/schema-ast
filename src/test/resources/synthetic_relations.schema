@@ -1,0 +1,20 @@
+definition tenant/user {}
+
+definition tenant/portfolio {
+	relation reader: tenant/user
+	permission read = reader
+}
+
+definition tenant/folder {
+	relation parent_portfolio: tenant/portfolio
+	relation reader: tenant/user
+	permission read = reader + parent_portfolio->read
+}
+
+definition tenant/document {
+	relation parent_folder: tenant/folder
+	relation reader: tenant/user
+
+	/** read defines whether a tenant/user can read the tenant/document */
+	permission read = reader + parent_folder->read
+}

@@ -1,0 +1,23 @@
+definition tenant/organization {
+	relation admin: tenant/user
+	permission read_all_docs = admin
+}
+
+definition tenant/folder {
+	relation parent: tenant/folder | tenant/organization
+	relation reader: tenant/user
+
+	// NOTE: since parent is either a tenant/folder OR an tenant/organization, if we want to check
+	// in both, we need to make sure `read_all_docs` has the *same name* in both tenant/folder
+	// and tenant/organization.
+	permission read_all_docs = reader + parent->read_all_docs
+}
+
+definition tenant/document {
+	relation parent: tenant/folder | tenant/organization
+	relation reader: tenant/user
+
+	permission view = reader + parent->read_all_docs
+}
+
+definition tenant/user {}

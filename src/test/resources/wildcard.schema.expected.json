@@ -1,0 +1,54 @@
+{
+  "@type" : "schema",
+  "definitions" : [ {
+    "@type" : "definition",
+    "name" : "user"
+  }, {
+    "@type" : "definition",
+    "name" : "resource",
+    "relations" : [ {
+      "@type" : "relation",
+      "name" : "viewer",
+      "expression" : {
+        "@type" : "or",
+        "left" : {
+          "@type" : "or",
+          "left" : {
+            "@type" : "ref",
+            "ref" : "user"
+          },
+          "right" : {
+            "@type" : "wildcardRef",
+            "ref" : "user"
+          }
+        },
+        "right" : {
+          "@type" : "ref",
+          "ref" : "anothertype"
+        }
+      }
+    }, {
+      "@type" : "relation",
+      "name" : "another",
+      "expression" : {
+        "@type" : "or",
+        "left" : {
+          "@type" : "ref",
+          "ref" : "user"
+        },
+        "right" : {
+          "@type" : "wildcardRef",
+          "ref" : "user"
+        }
+      }
+    } ],
+    "permissions" : [ {
+      "@type" : "permission",
+      "name" : "view",
+      "expression" : {
+        "@type" : "ref",
+        "ref" : "viewer"
+      }
+    } ]
+  } ]
+}

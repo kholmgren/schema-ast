@@ -1,0 +1,12 @@
+definition tenant/role {
+	relation member: tenant/user | tenant/group#membership
+	permission allowed = member
+}
+
+definition tenant/user {}
+
+definition tenant/group {
+	relation admin: tenant/user
+	relation member: tenant/user
+	permission membership = admin + member
+}

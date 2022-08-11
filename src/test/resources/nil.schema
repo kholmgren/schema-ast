@@ -1,0 +1,5 @@
+definition resource {    
+    permission empty = nilRefExpr
+    permission another = foo + nilRefExpr + bar
+    permission third = (a + b + nilRefExpr) - c - nilRefExpr
+}

@@ -1,0 +1,15 @@
+{
+  "@type" : "schema",
+  "definitions" : [ {
+    "@type" : "definition",
+    "name" : "sometenant/somedef",
+    "relations" : [ {
+      "@type" : "relation",
+      "name" : "somerel",
+      "expression" : {
+        "@type" : "ref",
+        "ref" : "anothertenant/someobject"
+      }
+    } ]
+  } ]
+}

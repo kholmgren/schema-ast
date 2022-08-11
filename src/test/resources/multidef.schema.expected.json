@@ -1,0 +1,81 @@
+{
+  "@type" : "schema",
+  "definitions" : [ {
+    "@type" : "definition",
+    "name" : "user"
+  }, {
+    "@type" : "definition",
+    "name" : "namespace",
+    "relations" : [ {
+      "@type" : "relation",
+      "name" : "adminer",
+      "expression" : {
+        "@type" : "ref",
+        "ref" : "user"
+      }
+    } ],
+    "permissions" : [ {
+      "@type" : "permission",
+      "name" : "admin",
+      "expression" : {
+        "@type" : "ref",
+        "ref" : "adminer"
+      }
+    } ]
+  }, {
+    "@type" : "definition",
+    "name" : "repository",
+    "relations" : [ {
+      "@type" : "relation",
+      "name" : "namespace",
+      "expression" : {
+        "@type" : "ref",
+        "ref" : "namespace"
+      }
+    }, {
+      "@type" : "relation",
+      "name" : "reader",
+      "expression" : {
+        "@type" : "ref",
+        "ref" : "user"
+      }
+    }, {
+      "@type" : "relation",
+      "name" : "writer",
+      "expression" : {
+        "@type" : "groupRef",
+        "ref" : "user",
+        "member" : "anotherrel"
+      }
+    } ],
+    "permissions" : [ {
+      "@type" : "permission",
+      "name" : "read",
+      "expression" : {
+        "@type" : "union",
+        "left" : {
+          "@type" : "union",
+          "left" : {
+            "@type" : "ref",
+            "ref" : "reader"
+          },
+          "right" : {
+            "@type" : "ref",
+            "ref" : "writer"
+          }
+        },
+        "right" : {
+          "@type" : "walk",
+          "refs" : [ "namespace", "admin" ]
+        }
+      }
+    }, {
+      "@type" : "permission",
+      "name" : "write",
+      "expression" : {
+        "@type" : "ref",
+        "ref" : "writer"
+      }
+    } ]
+  } ]
+}

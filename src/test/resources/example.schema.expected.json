@@ -1,0 +1,82 @@
+{
+  "@type" : "schema",
+  "definitions" : [ {
+    "@type" : "definition",
+    "name" : "tenant/user"
+  }, {
+    "@type" : "definition",
+    "name" : "tenant/group",
+    "relations" : [ {
+      "@type" : "relation",
+      "name" : "member",
+      "expression" : {
+        "@type" : "or",
+        "left" : {
+          "@type" : "ref",
+          "ref" : "tenant/user"
+        },
+        "right" : {
+          "@type" : "groupRef",
+          "ref" : "tenant/group",
+          "member" : "member"
+        }
+      }
+    } ]
+  }, {
+    "@type" : "definition",
+    "name" : "tenant/document",
+    "relations" : [ {
+      "@type" : "relation",
+      "name" : "writer",
+      "expression" : {
+        "@type" : "or",
+        "left" : {
+          "@type" : "ref",
+          "ref" : "tenant/user"
+        },
+        "right" : {
+          "@type" : "groupRef",
+          "ref" : "tenant/group",
+          "member" : "member"
+        }
+      }
+    }, {
+      "@type" : "relation",
+      "name" : "reader",
+      "expression" : {
+        "@type" : "or",
+        "left" : {
+          "@type" : "ref",
+          "ref" : "tenant/user"
+        },
+        "right" : {
+          "@type" : "groupRef",
+          "ref" : "tenant/group",
+          "member" : "member"
+        }
+      }
+    } ],
+    "permissions" : [ {
+      "@type" : "permission",
+      "name" : "write",
+      "expression" : {
+        "@type" : "ref",
+        "ref" : "writer"
+      }
+    }, {
+      "@type" : "permission",
+      "name" : "read",
+      "expression" : {
+        "@type" : "union",
+        "left" : {
+          "@type" : "ref",
+          "ref" : "reader"
+        },
+        "right" : {
+          "@type" : "ref",
+          "ref" : "write"
+        }
+      }
+    } ]
+  } ]
+}
